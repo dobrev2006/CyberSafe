@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CyberSafe — бъди в безопасност онлайн</title>
+  <meta name="description" content="CyberSafe – научи как да се предпазваш от киберзаплахи: тест, симулатор на фишинг, речник и център за реакция." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Manrope:wght@400;600;800&display=swap&subset=cyrillic" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%277%27 y=%2714%27 width=%2718%27 height=%2714%27 rx=%274%27 fill=%27%2316181a%27/%3E%3Cpath d=%27M11 14v-3a5 5 0 0 1 10 0v3%27 fill=%27none%27 stroke=%27%2316181a%27 stroke-width=%273%27/%3E%3Ccircle cx=%2716%27 cy=%2721%27 r=%272.4%27 fill=%27%23c8f03c%27/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="style.css" />
+
+  <script type="importmap">
+  { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  } }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+</head>
+<body>
+  <!-- ============ НАВИГАЦИЯ ============ -->
+  <header class="nav" id="nav">
+    <a class="logo" href="#top" aria-label="CyberSafe — начало">
+      <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="7" y="14" width="18" height="14" rx="4" fill="currentColor"/><path d="M11 14v-3a5 5 0 0 1 10 0v3" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="16" cy="21" r="2.4" fill="var(--lime)"/></svg>
+      <span>Cyber<b>Safe</b></span>
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Основна навигация">
+      <a href="#threats">Заплахи</a>
+      <a href="#password">Парола</a>
+      <a href="#quiz">Тест</a>
+      <a href="#scams">Измами</a>
+      <a href="#simulator">Симулатор</a>
+      <a href="#glossary">Речник</a>
+      <a href="#help">Помощ</a>
+    </nav>
+    <a class="nav-cta" href="#help">Спешна помощ</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Отвори меню" aria-expanded="false"><span></span><span></span></button>
+  </header>
+
+  <main id="top">
+    <!-- ============ 01 НАЧАЛО + КОМБИНАЦИЯТА (закачена 3D сцена) ============ -->
+    <section class="lock-scene" id="lockScene">
+      <canvas class="lock-canvas" id="lockCanvas" aria-hidden="true"></canvas>
+
+      <div class="hero-copy" id="heroCopy">
+        <p class="kicker"><span class="dot"></span> Твоята дигитална сигурност е важна</p>
+        <h1 class="display">Бъди умен.<br /><em>Бъди защитен.</em></h1>
+        <p class="lede">Интернетът предлага безкрайни възможности. Научи как да разпознаваш опасностите и да пазиш информацията си.</p>
+        <div class="hero-actions">
+          <a class="btn btn-lime" href="#quiz">Провери знанията си <span class="arr">→</span></a>
+          <a class="btn btn-line" href="#threats">Научи повече</a>
+        </div>
+        <p class="hint">Завърти диска с мишката · скролни, за да заключиш</p>
+      </div>
+
+      <!-- 5 навика = 5 цифри от комбинацията -->
+      <div class="habits" id="habits" aria-label="5 навика за по-сигурен интернет">
+        <p class="kicker habits-kicker">Комбинацията на сигурността</p>
+        <article class="habit"><span class="habit-digit">3</span><p class="habit-num">Навик 01 / 05</p><h2>Използвай силни пароли</h2><p>Създавай дълги и различни пароли за отделните си профили. Мениджърът на пароли ги помни вместо теб.</p></article>
+        <article class="habit"><span class="habit-digit">7</span><p class="habit-num">Навик 02 / 05</p><h2>Включи двуфакторна защита</h2><p>Добави второ потвърждение при влизане. Дори някой да научи паролата ти, няма да влезе без него.</p></article>
+        <article class="habit"><span class="habit-digit">1</span><p class="habit-num">Навик 03 / 05</p><h2>Проверявай линковете</h2><p>Не отваряй съмнителни връзки и прикачени файлове. Отвори официалния сайт сам, вместо да кликаш.</p></article>
+        <article class="habit"><span class="habit-digit">9</span><p class="habit-num">Навик 04 / 05</p><h2>Обновявай устройствата</h2><p>Инсталирай актуализациите на системата и приложенията. Те затварят пробиви, които нападателите вече познават.</p></article>
+        <article class="habit"><span class="habit-digit">4</span><p class="habit-num">Навик 05 / 05</p><h2>Прави резервни копия</h2><p>Пази важните файлове и на отделно, сигурно място. Така нито повреда, нито изнудване ще ги отнеме.</p></article>
+        <article class="habit habit-final"><p class="habit-num">Комбинацията е въведена</p><h2>Заключено.</h2><p>Пет навика, които превръщат интернета в по-сигурно място. Сега провери колко добре ги познаваш.</p><a class="btn btn-lime" href="#quiz">Към теста <span class="arr">→</span></a></article>
+      </div>
+
+      <div class="combo" id="combo" aria-hidden="true">
+        <span class="combo-label">Комбинация</span>
+        <span class="combo-slot">–</span><span class="combo-slot">–</span><span class="combo-slot">–</span><span class="combo-slot">–</span><span class="combo-slot">–</span>
+        <span class="combo-state" id="comboState">Отключено</span>
+      </div>
+    </section>
+
+    <!-- ============ ЗАЩО Е ВАЖНО ============ -->
+    <section class="why section">
+      <p class="kicker">Защо е важно?</p>
+      <h2 class="statement" id="statement">Една грешка онлайн може да струва <mark>скъпо.</mark></h2>
+      <p class="why-copy">Киберсигурността не е само за специалисти. Тя започва с малки ежедневни навици – силни пароли, внимание към линковете и разумно споделяне на лична информация.</p>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track" id="marquee">
+        <span>Фишинг</span><span>SMS измами</span><span>Телефонни измами</span><span>Фалшиви магазини</span><span>Романтични измами</span><span>Инвестиционни измами</span><span>Фалшива поддръжка</span>
+      </div>
+    </div>
+
+    <!-- ============ ЗАПЛАХИ ============ -->
+    <section class="threats section" id="threats">
+      <div class="head">
+        <div><p class="kicker">Познай риска</p><h2 class="h2">Най-честите <em>киберзаплахи</em></h2></div>
+        <p class="head-copy">Познаването на опасностите е първата стъпка към защитата. Задръж курсора върху карта.</p>
+      </div>
+      <div class="threat-grid">
+        <article class="threat tilt">
+          <div class="threat-img"><img src="img/threat-phishing.webp" alt="Кука, закачила плик с писмо" width="960" height="720" loading="lazy" /></div>
+          <p class="tag">01 / Фишинг</p>
+          <h3>Фалшиви съобщения</h3>
+          <p>Измамни имейли и съобщения, които се опитват да откраднат пароли или лични данни.</p>
+          <a class="more" href="#scams" data-open-scam="phishing">Как да се предпазя? →</a>
+        </article>
+        <article class="threat tilt">
+          <div class="threat-img"><img src="img/threat-malware.webp" alt="Бръмбар с вериги на компютърна платка върху клавиш" width="960" height="720" loading="lazy" /></div>
+          <p class="tag">02 / Зловреден софтуер</p>
+          <h3>Вируси и malware</h3>
+          <p>Опасни програми, които могат да повредят устройството или да откраднат информация.</p>
+          <a class="more" href="#help" data-open-incident="infected-device">Какво да направя? →</a>
+        </article>
+        <article class="threat tilt">
+          <div class="threat-img"><img src="img/threat-account.webp" alt="Счупен на две ключ" width="960" height="720" loading="lazy" /></div>
+          <p class="tag">03 / Кражба на данни</p>
+          <h3>Компрометирани акаунти</h3>
+          <p>Достъп до профилите ти чрез откраднати, слаби или повторно използвани пароли.</p>
+          <a class="more" href="#help" data-open-incident="account">Какво да направя? →</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ ПАРОЛА ============ -->
+    <section class="password section" id="password">
+      <div class="pw-copy">
+        <p class="kicker">Практически съвет</p>
+        <h2 class="h2">Паролата ти достатъчно <em>силна</em> ли е?</h2>
+        <p>Провери примерна парола. Всичко се изчислява локално в браузъра ти и не се изпраща никъде.</p>
+      </div>
+      <div class="pw-card">
+        <label class="field-label" for="pwInput">Въведи примерна парола</label>
+        <div class="pw-field">
+          <input id="pwInput" type="password" placeholder="Напиши парола…" autocomplete="off" spellcheck="false" />
+          <button id="pwToggle" type="button" aria-label="Покажи паролата">Покажи</button>
+        </div>
+        <div class="pw-gauge" aria-hidden="true"><i id="pwFill"></i></div>
+        <div class="pw-out">
+          <p class="pw-verdict" id="pwVerdict">Оценката ще се появи тук</p>
+          <p class="pw-time"><span>Време за разбиване</span><b id="pwTime">—</b></p>
+        </div>
+        <ul class="pw-checks" id="pwChecks">
+          <li data-check="len">Поне 12 символа</li>
+          <li data-check="case">Главни и малки букви</li>
+          <li data-check="num">Цифри</li>
+          <li data-check="sym">Специални символи</li>
+          <li data-check="common">Не е често срещана</li>
+        </ul>
+        <button class="btn btn-line btn-sm" type="button" id="pwGenerate">Предложи силна парола ↻</button>
+      </div>
+    </section>
+
+    <!-- ============ ТЕСТ ============ -->
+    <section class="quiz section" id="quiz">
+      <div class="head">
+        <div><p class="kicker">Време е за проверка</p><h2 class="h2">Колко добре познаваш <em>киберсигурността?</em></h2></div>
+        <p class="head-copy">Избери трудност и отговори на пет кратки въпроса. Най-добрият ти резултат се пази в браузъра.</p>
+      </div>
+      <div class="quiz-card">
+        <div class="levels" role="group" aria-label="Трудност">
+          <button class="level active" data-level="easy" type="button"><i style="background:#7fc95a"></i> Лесно</button>
+          <button class="level" data-level="medium" type="button"><i style="background:#f2b630"></i> Средно</button>
+          <button class="level" data-level="hard" type="button"><i style="background:var(--alert)"></i> Трудно</button>
+          <span class="best" id="bestScore">Рекорд: —</span>
+        </div>
+        <div class="quiz-meta"><span id="qCount">Въпрос 1 / 5</span><span id="qScore">Точки: 0</span></div>
+        <div class="quiz-bar"><i id="qBar"></i></div>
+        <h3 class="question" id="qText"></h3>
+        <div class="answers" id="qAnswers"></div>
+        <div class="quiz-foot">
+          <p id="qFeedback" aria-live="polite">Избери един отговор.</p>
+          <button class="btn btn-lime" id="qNext" type="button" disabled>Следващ въпрос <span class="arr">→</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ИЗМАМИ ============ -->
+    <section class="scams section" id="scams">
+      <div class="head">
+        <div><p class="kicker">Научи как да се предпазиш</p><h2 class="h2">Видове <em>киберизмами</em></h2></div>
+        <p class="head-copy">Избери вид измама, за да видиш как работи, по какво да я разпознаеш и как да се защитиш.</p>
+      </div>
+      <div class="scam-grid" id="scamGrid"></div>
+    </section>
+
+    <!-- ============ СИМУЛАТОР ============ -->
+    <section class="sim section" id="simulator">
+      <div class="head">
+        <div><p class="kicker">Разпознай опасността</p><h2 class="h2">Симулатор на <em>фишинг</em></h2></div>
+        <p class="head-copy">Кликни върху подозрителните части на имейла. Има 3 сигнала за измама, но внимавай да не маркираш нещо нормално.</p>
+      </div>
+      <div class="sim-layout">
+        <div class="mail-app">
+          <div class="mail-bar"><span></span><span></span><span></span><b>Поща · Входящи</b><em>Учебна симулация</em></div>
+          <div class="mail-head">
+            <div class="avatar">БС</div>
+            <div class="mail-meta">
+              <strong>Банкова сигурност</strong>
+              <button class="clue" data-clue="sender" type="button">security-alert@bank-verification.example</button>
+              <small>до: теб · днес, 09:42</small>
+            </div>
+          </div>
+          <h3 class="mail-subject">Спешно: Потвърди профила си до 24 часа!</h3>
+          <div class="mail-body">
+            <p><button class="clue" data-clue="greeting" type="button">Здравейте,</button></p>
+            <p>Засекохме необичайна активност във вашия профил. За да избегнете временно ограничаване на достъпа, е необходимо да потвърдите данните си незабавно.</p>
+            <p><button class="clue clue-btn" data-clue="link" type="button">Потвърди профила си</button></p>
+            <p>Ако не извършите действието в рамките на 24 часа, <button class="clue" data-clue="pressure" type="button">акаунтът ви ще бъде окончателно блокиран</button>.</p>
+            <p>Благодарим за съдействието,<br />Екип „Банкова сигурност“</p>
+          </div>
+          <p class="mail-note">Учебен пример · всички имена и адреси са измислени</p>
+        </div>
+        <aside class="sim-side">
+          <p class="kicker">Твоята задача</p>
+          <h3>Открий сигналите за измама</h3>
+          <div class="sim-count"><b id="simCount">0</b><span>маркирани<br />от 3 търсени</span></div>
+          <div class="sim-bar"><i id="simBar"></i></div>
+          <button class="btn btn-lime" id="simCheck" type="button">Провери отговорите <span class="arr">→</span></button>
+          <button class="btn btn-line btn-sm" id="simReset" type="button">Започни отначало ↻</button>
+          <div class="sim-result" id="simResult" aria-live="polite"></div>
+        </aside>
+      </div>
+      <div class="sim-explain" id="simExplain" hidden>
+        <article data-explain="sender"><span class="ex-status"></span><p class="tag">Сигнал 01</p><h4>Съмнителен подател</h4><p>Адресът използва домейн, който не е официален адрес на банка. Винаги проверявай целия адрес на подателя.</p></article>
+        <article data-explain="link"><span class="ex-status"></span><p class="tag">Сигнал 02</p><h4>Подозрителен линк</h4><p>Бутонът води към непроверен адрес. Не натискай линкове от неочаквани съобщения – отвори официалния сайт сам.</p></article>
+        <article data-explain="pressure"><span class="ex-status"></span><p class="tag">Сигнал 03</p><h4>Натиск и заплаха</h4><p>Краткият срок и заплахата за блокиране целят да те накарат да действаш прибързано.</p></article>
+      </div>
+    </section>
+
+    <!-- ============ РЕЧНИК ============ -->
+    <section class="glossary section" id="glossary">
+      <div class="head">
+        <div><p class="kicker">Основни понятия</p><h2 class="h2">Речник на <em>киберсигурността</em></h2></div>
+        <p class="head-copy">Търси по английско понятие или български превод. Кликни термин, за да видиш обяснение и пример.</p>
+      </div>
+      <div class="gl-controls">
+        <input class="search" id="glSearch" type="search" placeholder="Търси термин…" autocomplete="off" aria-label="Търсене в речника" />
+        <div class="letters" id="glLetters" role="group" aria-label="Филтър по първа буква"></div>
+        <span class="gl-count" id="glCount" aria-live="polite"></span>
+      </div>
+      <div class="gl-grid" id="glGrid"></div>
+      <p class="empty" id="glEmpty" hidden>Няма намерени термини. Опитай с друга дума или избери „Всички“.</p>
+    </section>
+
+    <!-- ============ ЦЕНТЪР ЗА РЕАКЦИЯ ============ -->
+    <section class="help section" id="help">
+      <div class="head">
+        <div><p class="kicker">Център за реакция при кибератаки</p><h2 class="h2">Какво се <em>случи?</em></h2></div>
+        <p class="head-copy">Избери проблема, който срещаш, и следвай стъпките, за да защитиш устройствата и личните си данни.</p>
+      </div>
+      <div class="help-top">
+        <aside class="urgent">
+          <p class="tag">Спешно ли е?</p>
+          <p>При финансова измама се свържи веднага с банката си чрез официалния ѝ телефон или приложение. Ако акаунтът ти е компрометиран, използвай доверено устройство и официалната страница за възстановяване.</p>
+        </aside>
+        <div class="first-steps">
+          <p class="tag">Първи стъпки</p>
+          <ol>
+            <li>Спри взаимодействието със съмнителното съобщение или устройство.</li>
+            <li>При съмнение за зараза изключи устройството от мрежата.</li>
+            <li>Използвай доверено устройство и официални канали.</li>
+            <li>Запази доказателствата, преди да триеш или форматираш.</li>
+          </ol>
+        </div>
+      </div>
+      <input class="search" id="incSearch" type="search" placeholder="Търси ситуация, напр. „банка“ или „вирус“…" autocomplete="off" aria-label="Търсене на ситуация" />
+      <div class="inc-grid" id="incGrid"></div>
+      <p class="empty" id="incEmpty" hidden>Не открихме такава ситуация. Опитай с друга дума или се обърни към специалист.</p>
+      <p class="disclaimer">CyberSafe дава образователни насоки и не заменя професионална помощ, съдействие от банка или органите на реда.</p>
+    </section>
+
+    <!-- ============ ФИНАЛ ============ -->
+    <section class="final" id="final">
+      <p class="kicker">Бъди една крачка напред</p>
+      <h2 class="display">Сигурността започва <em>от теб.</em></h2>
+      <p class="lede">Мисли, преди да кликнеш. Пази това, което има значение.</p>
+      <a class="btn btn-lime" href="#top">Към началото ↑</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span class="logo-text">Cyber<b>Safe</b></span>
+    <span>Учебен проект по киберсигурност · 2026</span>
+    <a href="#top">Обратно нагоре ↑</a>
+  </footer>
+
+  <!-- ============ СТРАНИЧЕН ПАНЕЛ (детайли за измама / инцидент) ============ -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-backdrop" data-close></div>
+    <aside class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+      <button class="drawer-close" type="button" data-close aria-label="Затвори">×</button>
+      <div id="drawerContent"></div>
+    </aside>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
